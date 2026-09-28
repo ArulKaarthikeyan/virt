@@ -1,0 +1,40 @@
+========================================
+VM INSTALLATION USING POWERSHELL
+========================================
+
+1. Display the available virtual switches
+
+Get-VMSwitch
+
+
+2. Create a new virtual machine with a virtual hard disk
+
+New-VM -Name "ARUL_new_020" -NewVHDPath "C:\Path\ARUL_new_020.vhdx" -NewVHDSizeBytes 30GB -Generation 2
+
+
+3. Assign the virtual switch to the virtual machine
+
+Connect-VMNetworkAdapter -VMName "ARUL_new_020" -SwitchName "Default Switch"
+
+
+4. Attach the Ubuntu ISO file to the virtual DVD drive
+
+Set-VMFirmware -VMName "ARUL_new_020" -FirstBootDevice (Get-VMDvdDrive -VMName "ARUL_new_020")
+
+
+Add-VMDvdDrive -VMName "ARUL_new_020" -Path "D:\ubuntu-22.04.5-desktop-amd64.iso"
+
+
+5. Start the virtual machine
+
+Start-VM -Name "ARUL_new_020"
+
+
+6. Check the status of the virtual machine
+
+Get-VM -Name "ARUL_new_020"
+
+
+7. Stop the virtual machine
+
+Stop-VM -Name "ARUL_new_020"

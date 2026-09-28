@@ -1,0 +1,89 @@
+==================================================
+KVM INSTALLATION AND QCOW2 DISK OPERATIONS
+==================================================
+
+1. Update the package list
+
+sudo apt update
+
+
+2. Install KVM and required virtualization packages
+
+sudo apt install qemu-kvm
+libvirt-daemon-system
+libvirt-clients
+virt-manager
+
+
+3. Enable and start the libvirt service
+
+sudo systemctl enable --now libvirtd
+
+
+4. Add the current user to the required groups
+
+sudo usermod -aG libvirt,kvm $USER
+
+After that
+
+a) virsh
+b) sudo virt-manager
+
+Open virt-manager and upload cirros image/ubuntu img
+
+
+5. Create a QCOW2 virtual disk
+
+qemu-img create -f qcow2 ubuntu_vm.qcow2 10G
+
+
+6. Check the information of the QCOW2 disk
+
+qemu-img info ubuntu_vm.qcow2
+
+
+7. Resize the QCOW2 disk by 5 GB
+
+sudo qemu-img resize /home/arul020/ubuntu_vm.qcow2 +5G
+
+
+8. Check the disk information again
+
+qemu-img info ubuntu_vm.qcow2
+
+
+9. Convert QCOW2 to VDI
+
+qemu-img convert -f qcow2 -O vdi ubuntu_vm.qcow2 ubuntu_vm.vdi
+
+
+10. Convert QCOW2 to VHD
+
+qemu-img convert -f qcow2 -O vpc ubuntu_vm.qcow2 ubuntu_vm.vhd
+
+
+11. Convert QCOW2 to RAW/IMG
+
+qemu-img convert -f qcow2 -O raw ubuntu_vm.qcow2 ubuntu_vm.img
+
+1. Increase the virtual disk size
+
+2. Check the disks and partitions
+
+lsblk
+
+3. Install growpart if required
+
+sudo apt install cloud-guest-utils
+
+4. Grow the partition
+
+sudo growpart /dev/sda 1
+
+5. Resize the filesystem
+
+sudo resize2fs /dev/sda1
+
+6. Verify the new size
+
+df -h

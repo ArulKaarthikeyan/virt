@@ -1,0 +1,5 @@
+EX 4 : Citrix Xenserver
+
+Server IP: 10.10.25.140
+username: root
+password: TCEIT@321
