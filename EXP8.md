@@ -50,6 +50,7 @@ network:
 **4. Apply and restart**
 
 ```bash
+sudo systemctl enable systemd-networkd
 sudo netplan apply
 sudo systemctl restart NetworkManager
 ```
