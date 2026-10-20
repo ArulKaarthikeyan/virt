@@ -75,9 +75,11 @@ Expected: `br-cloud` holds the IP, `enp0s3` is its member (no IP of its own).
 ```bash
 sudo brctl addbr br-cloud-new
 sudo brctl addif br-cloud-new enp0s3
-sudo ifconfig enp0s3 0
-sudo ifconfig br-cloud-new 10.0.2.15 netmask 255.255.255.0
-sudo route add default gw 10.0.2.2 dev br-cloud-new
+sudo ip addr flush dev enp0s3
+sudo ip link set enp0s3 up
+sudo ip link set br-cloud-new up
+sudo ip addr add 10.0.2.15/24 dev br-cloud-new
+sudo ip route add default via 10.0.2.2 dev br-cloud-new
 ip a
 route -n
 brctl show
